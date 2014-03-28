@@ -1,0 +1,143 @@
+Project: HIT! 
+Name: Raghav Vamaraju
+Student ID: 1350076
+CCID: vamaraju
+Partner: Syed Hussain
+LEC EA1, LBL ED01
+
+
+CONNECTION INSTRUCTIONS:
+
+To use play our game (HIT!), you must have the joystick, pushbutton, and potentiometer connected to the Arduino.
+
+Our pin connections are as follows:
+
+Joystick HORZ   ->  0
+Joystick VERT   ->  1
+Joystick SEL    ->  9
+Pushbutton      ->  4
+Potentiometer   ->  2
+Screen CARD_CS  ->  5   --|
+Screen TFT_CS   ->  6     |
+Screen D/C      ->  7     | 
+Screen RESET    ->  8     |  -->  Same connections as in the Assignments and Exercises.
+Screen MISO     ->  50    |
+Screen MOSI     ->  51    |
+Screen SCK      ->  52  --|
+
+
+GAMEPLAY:
+
+We have created a game similar to the popular Flash game, "Bowman". The goal of the game
+is to shoot the opponent at the opposite side of the playing field. You cannot see the
+opponent's exact position at first; you must guess where he is and adjust the power and 
+angle of your shot in order to hit him. 
+
+The playing field is a total of 3 screen lengths, and the player can only see one at a time.
+Player 1 is always on field 3, and Player 2 is always on field 1. Player 1 always has the first turn.
+When the pushbutton is pressed, the player fires his ball. The screen will follow the ball as long as 
+it is active. Once the ball has reached the opponent's field, you will be able to see his exact
+position. It will then be the opponent's turn. 
+
+In a Player vs. Player match, the joystick, pushbutton, and potentiometer are shared. You must
+alternate from Player-to-Player. Both Players can see each others' shots. In a Player vs. Computer 
+match, the computer will automatically fire regardless of your input (you will be able to see it's shot).
+
+
+
+CONTROLS:
+
+- Moving the joystick up and down will adjust the angle of your shot. The vector on the screen
+  will adjust with the joystick for visual verification.
+  
+- Turning the potentiometer will adjust the power of the shot. There is a meter at the top of the
+  screen representing the power. The power increases with the number of white bars.
+  
+- To shoot, press the pushbutton.
+
+
+
+EXTRA INFO:
+
+- Shooting upwards will result in an end to the turn. The fields above the Player have not been defined.
+
+- The red ticks at the top-right corner of the screen define the field number. When there are 3 red ticks,
+  it is Player 1's turn, and when there is 1 red tick, it is Player 2's turn.
+  
+- If you press the joystick mid-way through the game, you can see the numerical values for the
+  power and angle of the shot.
+  
+- There is a glitch that can randomly occur where a Player spawns right at the edge of his field, and
+  half of his body is unseen (he can still shoot). If this happens, the Player cannot be hit, and therefore
+  has unlimited attempts to kill his opponent.
+
+
+
+
+
+  
+
+-------------------------------------PLAYING FIELD DIAGRAM------------------------------------------
+
+
+(0,480)                      (0,320)                         (0,160)                            (0,0)
+<---------y increasing <----------------y increasing <-----------------y increasing <-------------			
+|-------------------------------|-------------------------------|-------------------------------| | 
+|                               |                               |                               | |
+|                               |                               |                               | v
+|            Field 3            |            Field 2            |          Field 1              | 
+|                               |                               |                               | x increasing
+|                               |                               |                               | | 
+|                               |                               |                               | |
+|-------------------------------|-------------------------------|-------------------------------| v
+(128,480)                    (128,320)                      (128,160)                        (128,0)	
+
+1st player portion                      mid-way portion               2nd player/computer portion
+
+
+
+
+
+
+
+-------------------------------------DIAGRAM OF VECTOR TRIANGLE------------------------------------------
+
+DIAGRAMS:
+
+             (x1, y1) = ((x0-x),(y0-y))	
+              /|			
+             / |
+        hyp /  |                       
+           /   |                      
+          /    |y
+         /     |
+        / angle|
+(x0,y0) --------
+	   x
+
+angle = deg_2_rad(angle);
+sin(angle) ----> y/hyp;
+cos(angle) ----> x/hyp;
+
+
+
+
+
+
+-------------------------------------PHYSICS EQUATIONS------------------------------------------
+PHYSICS EQUATIONS:
+d = (v_i*t) + (0.5a*t^2)
+v_f^2 = (v_i^2) + (2*a*d)
+v_f = (v_i) + (a*t)
+d = ((v_i + v_f)*t)/2
+
+WHERE: 
+d = distance
+v_i = initial velocity
+v_f = final velocity
+t = time
+a = g = gravitational acceleration
+
+
+
+
